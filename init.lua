@@ -342,7 +342,6 @@ do
   -- automatically detecting and setting the indentation.
   --
   -- We first install it from https://github.com/NMAC427/guess-indent.nvim
-  -- and then call its `setup()` function to start it with default settings.
   vim.pack.add { gh 'NMAC427/guess-indent.nvim' }
   require('guess-indent').setup {}
 
@@ -393,7 +392,7 @@ do
   -- Load the colorscheme here.
   -- Like many other themes, this one has different styles, and you could load
   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  vim.cmd.colorscheme 'tokyonight-night'
+  vim.cmd.colorscheme 'unokai'
 
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'folke/todo-comments.nvim' }
@@ -590,6 +589,7 @@ end
 -- ============================================================
 do
   -- [[ LSP Configuration ]]
+  -- and then call its `setup()` function to start it with default settings.
   -- Brief aside: **What is LSP?**
   --
   -- LSP is an initialism you've probably heard, but might not understand what it is.
@@ -693,8 +693,8 @@ do
   ---@type table<string, vim.lsp.Config>
   local servers = {
     -- clangd = {},
-    -- gopls = {},
-    -- pyright = {},
+    gopls = {},
+    pyright = {},
     -- rust_analyzer = {},
     --
     -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -762,6 +762,7 @@ do
   -- You can press `g?` for help in this menu.
   local ensure_installed = vim.tbl_keys(servers or {})
   vim.list_extend(ensure_installed, {
+   'gopls', 'goimports', 'gofumpt', 'delve', 'staticcheck',
     -- You can add other tools here that you want Mason to install
   })
 
@@ -907,7 +908,7 @@ do
   vim.pack.add { { src = gh 'nvim-treesitter/nvim-treesitter', version = 'main' } }
 
   -- Ensure basic parsers are installed
-  local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+  local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'php', 'javascript', 'go', 'sql' }
   require('nvim-treesitter').install(parsers)
 
   ---@param buf integer
@@ -973,13 +974,13 @@ do
   -- require 'kickstart.plugins.indent_line'
   -- require 'kickstart.plugins.lint'
   -- require 'kickstart.plugins.autopairs'
-  -- require 'kickstart.plugins.neo-tree'
+  require 'kickstart.plugins.neo-tree'
   -- require 'kickstart.plugins.gitsigns' -- adds gitsigns recommended keymaps
 
   -- NOTE: You can add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- require 'custom.plugins'
+  require 'custom.plugins'
 end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
