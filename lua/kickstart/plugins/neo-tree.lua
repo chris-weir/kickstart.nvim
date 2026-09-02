@@ -16,6 +16,10 @@ require('neo-tree').setup {
         ['\\'] = 'close_window',
       },
     },
+    follow_current_file = {
+        enabled = true,
+    },
   },
   enabled_git_setup = true,
+  enable_git_status = true
 }
